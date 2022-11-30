@@ -25,16 +25,9 @@ let mockData: IMovie[] = [
   },
 ];
 
-// export const getData = async (searchText: string): Promise<IMovie[]> => {
-//   return new Promise((resolve, reject) => {
-//     resolve(mockData);
-//     // reject([]);
-//   });
-// };
-
-/*
-export const getBusInfo = async (): Promise<IBusInfo[]> => {
-    return new Promise((resolve) => {
-      resolve(mockData);
-    });
-  };*/
+export const getData = async (searchText: string): Promise<IMovie[]> => {
+  return new Promise((resolve, reject) => {
+    resolve(mockData);
+    // reject([]);
+  });
+};

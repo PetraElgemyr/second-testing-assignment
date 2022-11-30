@@ -1,4 +1,4 @@
-import { IOmdbResponse } from "./../models/IOmdbResponse";
+import { IOmdbResponse } from "../models/IOmdbResponse";
 import { IMovie } from "../models/IMovie";
 import axios from "axios";
 

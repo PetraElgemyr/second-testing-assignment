@@ -44,7 +44,7 @@ jest.mock("axios", () => ({
   },
 }));
 
-describe("get api", () => {
+describe("should test api", () => {
   test("should test get data", async () => {
     // arrange
     expect.assertions(3);
