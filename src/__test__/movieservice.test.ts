@@ -8,16 +8,20 @@ import { getData } from "../ts/services/movieservice";
 import axios from "axios";
 import { mockData } from "../ts/services/__mocks__/movieservice";
 
-jest.mock("axios"); //mockar axios-anropet
-
-/*
-Länkar för tips om att mocka axios
+/* PETRA KOLLA LÄNKAR!!!
+Tips om att mocka (axios):
 https://stackoverflow.com/questions/51495473/typescript-and-jest-avoiding-type-errors-on-mocked-functions
 https://ooanishoo.medium.com/mock-axios-with-jest-and-react-testing-library-in-typescript-react-1c084d9ea880
+https://jestjs.io/docs/mock-function-api#mockfnmockresolvedvaluevalue
+https://www.appsloveworld.com/reactjs/100/4/type-of-axios-mock-using-jest-typescript 
 
-sparar själva mockade axios i en variabel för att kunna använda sen. Finns två sätt att skriva det på:  
+
 */
-// const mockedAxios = jest.mocked(axios);
+
+jest.mock("axios"); //mockar axios-anropet
+
+//sparar själva mockade axios i en variabel för att kunna använda sen. Finns två sätt att skriva det på:
+// const mockedAxios = jest.mocked(axios); // <-- funkar den att använda jest.mocked() kolla jest-dokumentation?
 const mockedAxios = axios as jest.Mocked<typeof axios>; //ett objekt av DATATYPEN axios
 
 describe("should test getData axios", () => {
