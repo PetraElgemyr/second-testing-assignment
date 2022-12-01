@@ -4,25 +4,25 @@ import { IMovie } from "../../models/IMovie";
 
 export const mockData: IMovie[] = [
   {
-    Title: "Shrek",
-    imdbID: "019462",
-    Type: "genre",
+    Title: "Star Wars IV",
+    imdbID: "31841",
+    Type: "text",
     Poster: "poster",
-    Year: "2003",
+    Year: "1977",
   },
   {
-    Title: "Shrek 2",
-    imdbID: "019542",
-    Type: "genre",
+    Title: "The Lord of the Rings",
+    imdbID: "94752",
+    Type: "text",
     Poster: "poster",
-    Year: "2005",
+    Year: "2001",
   },
   {
-    Title: "Shrek 2",
-    imdbID: "02341",
-    Type: "genre",
+    Title: "Harry Potter III",
+    imdbID: "18463",
+    Type: "text",
     Poster: "poster",
-    Year: "2007",
+    Year: "2004",
   },
 ];
 
@@ -34,10 +34,21 @@ export const mockData: IMovie[] = [
 
 export const getData = async (searchText: string): Promise<IMovie[]> => {
   return new Promise((resolve, reject) => {
-    if (searchText.length > 0) {
+    if (searchText !== "") {
       resolve(mockData);
     } else {
-      reject();
+      reject([]);
+      // reject(new Error("fel"));
     }
   });
 };
+
+/*
+
+ if (!password) {
+        throw new Error("no password given");
+    }
+    return password === otherPassword;
+}
+
+*/

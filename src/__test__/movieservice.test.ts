@@ -8,7 +8,6 @@ import { getData } from "../ts/services/movieservice";
 import axios from "axios";
 import { mockData } from "../ts/services/__mocks__/movieservice";
 
-// jest.mock("./../ts/services/movieservice.ts");
 jest.mock("axios", () => ({
   get: async () => {
     return new Promise((resolve) => {
@@ -21,40 +20,69 @@ jest.mock("axios", () => ({
   },
 }));
 
+// jest.mock("axios", () => ({
+//   get: async () => {
+//     return new Promise((resolve, reject) => {
+//       if (Promise<IMovie[]>) {
+//         resolve({
+//           data: {
+//             Search: mockData,
+//           },
+//         });
+//       } else {
+//         reject({
+//           // data: "Ingenting finns här",
+//         });
+//       }
+//     });
+//   },
+// }));
+
 describe("should test api", () => {
-  test("should test get data", async () => {
+  test("should successfully get data with mocked axios", async () => {
+    // jest.mock("axios", () => ({
+    //   get: async () => {
+    //     return new Promise((resolve) => {
+    //       resolve({
+    //         data: {
+    //           Search: mockData,
+    //         },
+    //       });
+    //     });
+    //   },
+    // }));
     // arrange
-    expect.assertions(3);
     let text: string = "shrek";
-    //   document.body.innerHTML = `  <input type="text" id="searchText" placeholder="Skriv titel här" /> `;
-    //   let text: string = (document.getElementById("searchText") as HTMLInputElement).value;
 
     //act
     let movies: IMovie[] = await getData(text);
 
     //assert
     expect(movies.length).toBe(3);
-    expect(movies[0].Title).toBe("Shrek");
-    expect(movies[2].Year).toBe("2007");
+    expect(movies[0].Title).toBe("Star Wars IV");
+    expect(movies[2].Year).toBe("2004");
   });
 
-  test("should reject and error", async () => {
+  test("should reject and fail", async () => {
     jest.mock("axios", () => ({
       get: async () => {
-        return new Promise((resolve, reject) => {
+        return new Promise((reject) => {
           reject({
-            data: "Ingenting finns här",
+            data: [],
           });
         });
       },
     }));
 
     let text: string = "";
-    let movies: IMovie[];
+    let movies: IMovie[] = [];
     try {
       movies = await getData(text);
-    } catch (response: any) {
-      expect(response.data).toBe("Ingenting finns här");
+    } catch (error: any) {
+      //catch (response: any) {
+      // expect(response.data).toBe("Ingenting finns här");
+      // expect(response.data.length).toBe(0);
+      expect(error).toBe([]);
     }
   });
 });
