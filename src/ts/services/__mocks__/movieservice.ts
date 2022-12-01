@@ -1,7 +1,8 @@
 import axios from "axios";
 import { IMovie } from "../../models/IMovie";
+//mocken
 
-let mockData: IMovie[] = [
+export const mockData: IMovie[] = [
   {
     Title: "Shrek",
     imdbID: "019462",
@@ -25,9 +26,18 @@ let mockData: IMovie[] = [
   },
 ];
 
+// export const getData = async (searchText: string): Promise<IMovie[]> => {
+//   return new Promise((resolve) => {
+//     resolve(mockData);
+//   });
+// };
+
 export const getData = async (searchText: string): Promise<IMovie[]> => {
   return new Promise((resolve, reject) => {
-    resolve(mockData);
-    // reject([]);
+    if (searchText.length > 0) {
+      resolve(mockData);
+    } else {
+      reject();
+    }
   });
 };
