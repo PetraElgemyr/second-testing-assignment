@@ -9,6 +9,7 @@ import { mockData } from "../ts/services/__mocks__/movieservice"; //används ej 
 
 describe("init function", () => {
   test("should call handleSubmit at submit", () => {
+    expect.assertions(1);
     document.body.innerHTML = `<form id="searchForm">
   <input type="text" id="searchText" placeholder="Skriv titel här" /> `;
     //<button type="submit" id="search">Sök</button> </form>
@@ -30,6 +31,7 @@ describe("init function", () => {
 
 describe("displayNoResult", () => {
   test("should create p-tag in container div", () => {
+    expect.assertions(2);
     document.body.innerHTML = `<div id="movie-container"></div> `;
     let container: HTMLDivElement = document.getElementById(
       "movie-container"
@@ -37,6 +39,9 @@ describe("displayNoResult", () => {
 
     movieAppFunctions.displayNoResult(container);
 
+    expect(document.querySelectorAll("p")[0].innerHTML).toBe(
+      "Inga sökresultat att visa"
+    ); //Första p-tags innerHtml
     expect(container.innerHTML).toContain("<p>Inga sökresultat att visa</p>");
     document.body.innerHTML = "";
   });
@@ -46,6 +51,8 @@ jest.mock("./../ts/services/movieservice.ts"); //mocka "riktiga" movieservice, m
 
 describe("createHtml function", () => {
   test("should create html for movie", async () => {
+    expect.assertions(4);
+
     //Arrange
     document.body.innerHTML = `<div id="movie-container"></div> `;
     let container: HTMLDivElement = document.getElementById(
@@ -68,8 +75,8 @@ describe("createHtml function", () => {
   });
 });
 
-// jest.mock("./../ts/services/movieservice.ts");
 describe("handleSubmit", () => {
+  //"återställa" tidigare mocks mm. Nu ny mock på axios ist för movieservice
   beforeEach(() => {
     jest.resetModules();
     jest.restoreAllMocks();
@@ -86,6 +93,7 @@ describe("handleSubmit", () => {
   }));
 
   test("should call createHtml", async () => {
+    expect.assertions(1);
     document.body.innerHTML = `<form id="searchForm">
     <input type="text" id="searchText" value="star" placeholder="Skriv titel här" />
     <button type="submit" id="search">Sök</button>
@@ -136,32 +144,22 @@ describe("handleSubmit", () => {
     // }
   });
 
-  test("should call displayNoResult in catch", () => {});
+  // test("should call displayNoResult in catch", async () => {
+  //   document.body.innerHTML = `
+  //   <input type="text" id="searchText" value="star" placeholder="Skriv titel här" />`;
+  //   (document.getElementById("searchText") as HTMLInputElement).value = ""; //hitta input och töm searchText för att tvinga fram fel
+  //   let spy = jest
+  //     .spyOn(movieAppFunctions, "displayNoResult")
+  //     .mockReturnValue();
+
+  //   await movieAppFunctions.handleSubmit();
+
+  //   expect(spy).toHaveBeenCalled();
+  // });
 });
 
 /*    
 
-
-describe("handleSubmit", () => {
-
-  test("should call on function displayNoResult", async () => {
-    //arrange
-    document.body.innerHTML = `<form id="searchForm">
-    <input type="text" id="searchText" value="star" placeholder="Skriv titel här" />
-    <button type="submit" id="search">Sök</button>
-  </form>
-  <div id="movie-container"></div>`;
-    let spy = jest
-      .spyOn(movieAppFunctions, "displayNoResult")
-      .mockReturnValue();
-
-    //act
-    await movieAppFunctions.handleSubmit();
-
-    //assert
-    expect(spy).toHaveBeenCalled();
-  });
-});
 
 
 */

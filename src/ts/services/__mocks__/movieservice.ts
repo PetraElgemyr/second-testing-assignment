@@ -37,8 +37,7 @@ export const getData = async (searchText: string): Promise<IMovie[]> => {
     if (searchText !== "") {
       resolve(mockData);
     } else {
-      reject([]);
-      // reject(new Error("fel"));
+      reject([]); //skickar tom lista vid fel
     }
   });
 };
