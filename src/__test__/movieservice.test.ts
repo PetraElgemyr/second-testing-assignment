@@ -22,7 +22,7 @@ jest.mock("axios"); //mockar axios-anropet
 
 //sparar själva mockade axios i en variabel för att kunna använda sen. Finns två sätt att skriva det på:
 // const mockedAxios = jest.mocked(axios); // <-- funkar den att använda jest.mocked() kolla jest-dokumentation?
-const mockedAxios = axios as jest.Mocked<typeof axios>; //ett objekt av DATATYPEN axios
+const mockedAxios = axios as jest.Mocked<typeof axios>; //ett objekt av DATATYPEN axios för att kunna använda mockResolve/reject
 
 describe("should test getData axios", () => {
   test("should successfully get data with mocked axios", async () => {

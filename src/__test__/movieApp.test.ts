@@ -114,8 +114,9 @@ describe("handleSubmit", () => {
     <button type="submit" id="search">Sök</button>
   </form>
   <div id="movie-container"></div>`;
-    let searchText = (document.getElementById("searchText") as HTMLInputElement)
-      .value;
+    let searchText: string = (
+      document.getElementById("searchText") as HTMLInputElement
+    ).value;
     searchText = "";
     let container: HTMLDivElement = document.getElementById(
       "movie-container"
@@ -133,14 +134,17 @@ describe("handleSubmit", () => {
       .mockReturnValue();
 
     //act
-    await movieAppFunctions.handleSubmit();
+    try {
+      await movieAppFunctions.handleSubmit();
+    } catch {
+      // expect(spy).toHaveReturnedWith([]);
+      // if (dataSpy) {
+      //assert
+      expect(dataSpy).toHaveBeenCalled();
+      expect(spy).toBeCalledWith(container);
+      expect(serviceFunctions.getData).toHaveBeenCalledTimes(1);
+    }
 
-    // expect(spy).toHaveReturnedWith([]);
-    // if (dataSpy) {
-    //assert
-    expect(dataSpy).toHaveBeenCalled();
-    expect(spy).toBeCalledWith(container);
-    expect(serviceFunctions.getData).toHaveBeenCalledTimes(1);
     // }
   });
 
