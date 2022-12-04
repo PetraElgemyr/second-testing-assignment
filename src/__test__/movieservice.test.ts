@@ -20,13 +20,14 @@ https://www.appsloveworld.com/reactjs/100/4/type-of-axios-mock-using-jest-typesc
 
 jest.mock("axios"); //mockar axios-anropet
 
-//sparar själva mockade axios i en variabel för att kunna använda sen. Finns två sätt att skriva det på:
-// const mockedAxios = jest.mocked(axios); // <-- funkar den att använda jest.mocked() kolla jest-dokumentation?
-const mockedAxios = axios as jest.Mocked<typeof axios>; //ett objekt av DATATYPEN axios för att kunna använda mockResolve/reject
+//sparar objekt av typ axios för att kunna använda sen. Finns två sätt att skriva det på:
+// const mockedAxios = jest.mocked(axios); // <-- funkar den att använda jest.mocked()  jest-dokumentation?
+const mockedAxios = axios as jest.Mocked<typeof axios>;
+//ett objekt av DATATYPEN axios för att kunna använda mockResolve/RejectValue(), fick ej att funka annars???
 
 describe("should test getData axios", () => {
   test("should successfully get data with mocked axios", async () => {
-    mockedAxios.get.mockResolvedValue({ data: { Search: mockData } }); //använd variabeln för att get/hämta resolves data som en vanlig .mock...
+    mockedAxios.get.mockResolvedValue({ data: { Search: mockData } }); //använd variabeln för att get/hämta resolves
 
     let text: string = "filmtext"; //testtext för att inte få reject i getData
 
@@ -48,10 +49,11 @@ describe("should test getData axios", () => {
 
     //anropa getData som ger tillbaka ett nytt löfte med ANTINGEN resolve eller reject. Nu reject
     let rejectResponse: IMovie[] = await getData(text);
-    //här är rejectResponse det man får tillbaka från vår mockade getData vid fail/reject, dvs tom array []
+    //här är rejectResponse det man får tillbaka från vår mockade getData vid fail/reject, dvs tom array [].
+    //movies-listan utan movies
 
-    expect(rejectResponse).toEqual([]);
     expect(rejectResponse.length).toBe(0);
+    expect(rejectResponse).toEqual([]);
   });
 });
 

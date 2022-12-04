@@ -107,6 +107,7 @@ describe("handleSubmit", () => {
     document.body.innerHTML = "";
   });
 
+  //testar else, inte säker på om det funkar
   test("should call displayNoResult", async () => {
     //arrange
     document.body.innerHTML = `<form id="searchForm">
